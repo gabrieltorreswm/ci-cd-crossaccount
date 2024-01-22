@@ -59,7 +59,7 @@ export class CiCdCrossaccountStack extends cdk.Stack {
     // Pipeline first definition
     const pipeLineCrossAccount = new Pipeline(this,"pipeline-cross-account",{
       pipelineName: "pipeline-cross-account",
-      //crossAccountKeys:true,
+      crossAccountKeys:true,
       role: rolePipeline
     })
 
@@ -126,7 +126,7 @@ export class CiCdCrossaccountStack extends cdk.Stack {
     })
 
     const actionDeploy = new actions.CloudFormationCreateUpdateStackAction({
-      //account: "937729235844",
+      account: props?.tags?.accountB, // ACCOUNT B
       templatePath: cdkbuildOutPut.atPath("cdk-application-serverless.template.json"),
       adminPermissions: true,
       stackName  : `cdk-application`,
