@@ -129,7 +129,7 @@ export class CiCdCrossaccountStack extends cdk.Stack {
       //account: "937729235844",
       templatePath: cdkbuildOutPut.atPath("cdk-application-serverless.template.json"),
       adminPermissions: true,
-      stackName  : `template-dev`,
+      stackName  : `cdk-application`,
       actionName : 'deploy-cross-account',
       region:"us-east-1"
     })
