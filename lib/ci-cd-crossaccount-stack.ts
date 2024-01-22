@@ -12,13 +12,40 @@ export class CiCdCrossaccountStack extends cdk.Stack {
     //Pipeline Role definition
     const rolePipeline = new Role(this,"pipeline-role",{
       roleName: "pipeline-role",
-      assumedBy: new ServicePrincipal('codepipeline.amazonaws.com')
+      assumedBy: new CompositePrincipal(
+        new ServicePrincipal('cloudformation.amazonaws.com'),
+        new ServicePrincipal('codepipeline.amazonaws.com'),
+        new ServicePrincipal('codebuild.amazonaws.com')
+      ) 
     })
 
-    const roleCodeBuild = new Role(this,"pipeline-role",{
+    const roleCodeBuild = new Role(this,"codebuild-role",{
       roleName: "codebuild-role",
-      assumedBy: new ServicePrincipal('codepipeline.amazonaws.com')
+      assumedBy: new CompositePrincipal(
+        new ServicePrincipal('cloudformation.amazonaws.com'),
+        new ServicePrincipal('codepipeline.amazonaws.com'),
+        new ServicePrincipal('codebuild.amazonaws.com')
+      ) 
     })
+
+    roleCodeBuild.addToPolicy(
+       new PolicyStatement(
+       {
+        effect: Effect.ALLOW,
+        actions: [
+          "iam:*",
+          "secretmanager:*",
+          "sts:*",
+          "ssm:*",
+          "kms:*",
+          "s3:*",
+          "cloudformation:*",
+          "ecr:*"
+        ], 
+        resources:["*"]
+       }
+       )
+    )
 
     rolePipeline.addToPolicy(
       new PolicyStatement({
