@@ -6,7 +6,7 @@ import { CiCdCrossaccountStack } from '../lib/ci-cd-crossaccount-stack';
 const app = new cdk.App();
 new CiCdCrossaccountStack(app, 'ci-cd-crossaccount', {
   env: {
-    account: "937729235844",
-    region: "us-east-1"
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION 
   }
 });
