@@ -127,7 +127,7 @@ export class CiCdCrossaccountStack extends cdk.Stack {
 
     const actionDeploy = new actions.CloudFormationCreateUpdateStackAction({
       //account: "937729235844",
-      templatePath: sourceOutput.atPath("cdk-application-serverless.template.json"),
+      templatePath: cdkbuildOutPut.atPath("cdk-application-serverless.template.json"),
       adminPermissions: true,
       stackName  : `template-dev`,
       actionName : 'deploy-cross-account',
